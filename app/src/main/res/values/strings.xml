@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">三川智慧建筑</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="nav_zk">控制</string>
+    <string name="nav_fenxi">分析</string>
+    <string name="nav_zn">智能</string>
+    <string name="nav_user">我的</string>
+</resources>
