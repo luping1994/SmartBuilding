@@ -5,4 +5,5 @@
     <string name="nav_fenxi">分析</string>
     <string name="nav_zn">智能</string>
     <string name="nav_user">我的</string>
+    <string name="TxLogin">登 录</string>
 </resources>

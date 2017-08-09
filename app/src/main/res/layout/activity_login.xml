@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="226dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_login" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_login_tubiao" />
+
+    <LinearLayout
+        android:id="@+id/accountLL"
+        android:layout_width="218dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/passwordLL"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_login_edit"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_user" />
+
+        <net.suntrans.smartbuilding.widgets.EditView
+            android:maxLines="1"
+            android:maxLength="18"
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
+            android:background="@null"
+            android:hint="手机号码/用户名"
+            android:paddingLeft="8dp"
+            android:textColor="@color/textMainColor"
+            android:textColorHint="#dfdfdf"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/passwordLL"
+        android:layout_width="218dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="73dp"
+        android:background="@drawable/bg_login_edit"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_password" />
+
+        <net.suntrans.smartbuilding.widgets.EditView
+            android:maxLength="18"
+            android:maxLines="1"
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
+            android:background="@null"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:paddingLeft="8dp"
+            android:textColor="@color/textMainColor"
+            android:textColorHint="#dfdfdf"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <Button
+        android:onClick="login"
+        android:id="@+id/login"
+        android:layout_width="214dp"
+        android:layout_height="31dp"
+        android:layout_above="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/bg_login_button"
+        android:text="@string/TxLogin"
+        android:textColor="@color/white" />
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="86dp"
+        android:src="@drawable/logo" />
+</RelativeLayout>

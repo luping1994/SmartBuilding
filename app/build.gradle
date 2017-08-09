@@ -41,9 +41,9 @@ android {
             def fileName
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 if (variant.buildType.name.equals('release')) {
-                    fileName = "tx_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+                    fileName = "sb_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
                 } else if (variant.buildType.name.equals('debug')) {
-                    fileName = "tx_${defaultConfig.versionName}_${defaultConfig.versionCode}_debug.apk"
+                    fileName = "sb_${defaultConfig.versionName}_${defaultConfig.versionCode}_debug.apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
@@ -68,4 +68,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.trello:rxlifecycle-components:1.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
 }

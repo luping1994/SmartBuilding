@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.suntrans.smartbuilding.adapter.MainPagerAdapter;
+import net.suntrans.smartbuilding.model.LoginEntity;
 import net.suntrans.smartbuilding.widgets.IViewPager;
 
 import retrofit2.Retrofit;
@@ -27,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-        setContentView(R.layout.activity_main);
         initBottomBar();
+
     }
 
     private void initBottomBar() {
