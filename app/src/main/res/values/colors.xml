@@ -9,4 +9,6 @@
     <color name="mainTabTextColorGray">#231F20</color>
     <color name="textMainColor">#444444</color>
     <color name="bgColor">#eeeeee</color>
+    <color name="black">#000000</color>
+    <color name="touch_effect">#9ccc</color>
 </resources>

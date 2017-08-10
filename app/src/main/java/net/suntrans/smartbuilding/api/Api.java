@@ -24,6 +24,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("menu_info")
     Observable<MenuItemEntity> getMenuItem(@Field("id") String id,
-                                           @Field("menuid") String menuid);
+                                           @Field("menuid") String menuid);    @FormUrlEncoded
+    @POST("GetModel")
+    Observable<MenuItemEntity> getMyAreaMode(@Field("id") String id,
+                                           @Field("menuid") String menuid,
+                                             @Field("status") String status,
+                                             @Field("modelid") String modelid);
 
 }

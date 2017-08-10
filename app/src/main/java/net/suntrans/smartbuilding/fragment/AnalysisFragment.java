@@ -1,21 +1,31 @@
 package net.suntrans.smartbuilding.fragment;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import net.suntrans.smartbuilding.R;
 import net.suntrans.smartbuilding.adapter.ControlAdapter;
+import net.suntrans.smartbuilding.adapter.RecyclerViewAdapter;
 import net.suntrans.smartbuilding.api.RetrofitHelper;
 import net.suntrans.smartbuilding.model.MenuItemEntity;
+import net.suntrans.smartbuilding.model.ModeEntity;
 import net.suntrans.smartbuilding.utils.StatusBarCompat;
+import net.suntrans.smartbuilding.utils.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +49,51 @@ public class AnalysisFragment extends RxFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analysis, container, false);
-        View view1 = view.findViewById(R.id.fixView);
+        RelativeLayout toolBar = (RelativeLayout) view.findViewById(R.id.toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            view1.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
+            lp.height = getResources().getDimensionPixelSize(R.dimen.actionbarAndStatusSize);
+            toolBar.setLayoutParams(lp);
         } else {
-            view1.setVisibility(View.GONE);
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
+            lp.height = getResources().getDimensionPixelSize(R.dimen.actionBarSize);
+            toolBar.setLayoutParams(lp);
         }
-
+        TextView title = (TextView) view.findViewById(R.id.title);
+        title.setText("分析");
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        datas = new ArrayList<>();
+        MenuItemEntity.MenuBean menuBean = new MenuItemEntity.MenuBean();
+        menuBean.setLi_name("能耗分析");
+        datas.add(menuBean);
+        MenuItemEntity.MenuBean menuBean1 = new MenuItemEntity.MenuBean();
+        menuBean.setLi_name("环境分析");
+        datas.add(menuBean1);
+        MenuItemEntity.MenuBean menuBean2 = new MenuItemEntity.MenuBean();
+        menuBean.setLi_name("状态评估");
+        datas.add(menuBean2);
+        MenuItemEntity.MenuBean menuBean3 = new MenuItemEntity.MenuBean();
+        menuBean.setLi_name("配电图");
+        datas.add(menuBean3);
 
+        //StaggeredGridLayoutManager
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerViewAdapter<MenuItemEntity.MenuBean> adapter = new RecyclerViewAdapter<MenuItemEntity.MenuBean>(R.layout.item_analysis, datas) {
+            @Override
+            protected void convert(BaseViewHolder helper, MenuItemEntity.MenuBean item) {
+                super.convert(helper, item);
+            }
+        };
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.HORIZONTAL));
     }
 
     @Override

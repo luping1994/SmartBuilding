@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.trello.rxlifecycle.components.support.RxFragment;
+
 import net.suntrans.smartbuilding.R;
 import net.suntrans.smartbuilding.adapter.DividerItemDecoration;
 import net.suntrans.smartbuilding.adapter.RecyclerViewAdapter;
+import net.suntrans.smartbuilding.model.LightEntity;
 import net.suntrans.smartbuilding.model.ModeEntity;
 
 import java.util.ArrayList;
@@ -21,13 +23,13 @@ import java.util.List;
  * Created by Administrator on 2017/8/9.
  */
 
-public class ModeFragment extends RxFragment {
+public class LightFragment extends RxFragment {
     private final String TAG = getClass().getSimpleName();
     private String url;
     private RecyclerView recyclerView;
-    private List<ModeEntity> datas;
-    public static ModeFragment newInstance(String url) {
-        ModeFragment fragment = new ModeFragment();
+    private List<LightEntity> datas;
+    public static LightFragment newInstance(String url) {
+        LightFragment fragment = new LightFragment();
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
         fragment.setArguments(bundle);
@@ -37,7 +39,7 @@ public class ModeFragment extends RxFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mode, container, false);
+        View view = inflater.inflate(R.layout.fragment_light, container, false);
         return view;
 
     }
@@ -47,19 +49,19 @@ public class ModeFragment extends RxFragment {
         super.onViewCreated(view, savedInstanceState);
         datas = new ArrayList<>();
         for (int i=0;i<7;i++){
-            ModeEntity mode = new ModeEntity();
+            LightEntity mode = new LightEntity();
             datas.add(mode);
         }
         url = getArguments().getString("url");
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerViewAdapter<ModeEntity> adapter = new RecyclerViewAdapter<ModeEntity>(R.layout.item_mode,datas){
+        RecyclerViewAdapter<LightEntity> adapter = new RecyclerViewAdapter<LightEntity>(R.layout.item_light,datas){
             @Override
-            protected void convert(BaseViewHolder helper, ModeEntity item) {
+            protected void convert(BaseViewHolder helper, LightEntity item) {
                 super.convert(helper, item);
             }
         };
-        recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.HORIZONTAL));
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -6,6 +6,9 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:id="@+id/recyclerView"
         app:spanCount="2"
         app:layoutManager="GridLayoutManager"
         android:layout_width="match_parent"

@@ -16,7 +16,6 @@
         android:src="@drawable/home_bg" />
 
 
-
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="200dp"
         android:background="@drawable/bg_item"

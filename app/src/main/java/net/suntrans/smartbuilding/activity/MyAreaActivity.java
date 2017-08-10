@@ -35,11 +35,11 @@ public class MyAreaActivity extends RxAppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
-            lp.height = UiUtils.dip2px(74);
+            lp.height = getResources().getDimensionPixelSize(R.dimen.actionbarAndStatusSize);
             toolBar.setLayoutParams(lp);
         }else {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
-            lp.height = UiUtils.dip2px(50);
+            lp.height = getResources().getDimensionPixelSize(R.dimen.actionBarSize);
             toolBar.setLayoutParams(lp);
         }
         AreaFragment fragment =  AreaFragment.newInstance(getIntent().getStringExtra("url"));

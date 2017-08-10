@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 // http://developer.android.com/reference/android/support/v4/app/FragmentStatePagerAdapter.html
-public class AreaFragmentAdapter extends FragmentPagerAdapter {
+public class FragmentAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragments = new ArrayList<>();
     private final List<String> mFragmentTitles = new ArrayList<>();
 
-    public AreaFragmentAdapter(FragmentManager fm) {
+    public FragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 

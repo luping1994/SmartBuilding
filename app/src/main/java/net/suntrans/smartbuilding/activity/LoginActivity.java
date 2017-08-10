@@ -22,8 +22,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static net.suntrans.smartbuilding.R.id.login;
-
 /**
  * Created by Administrator on 2017/8/9.
  */

@@ -1,11 +1,9 @@
 package net.suntrans.smartbuilding.fragment;
 
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +11,7 @@ import android.view.ViewGroup;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import net.suntrans.smartbuilding.R;
-import net.suntrans.smartbuilding.adapter.AreaFragmentAdapter;
-import net.suntrans.smartbuilding.widgets.IViewPager;
+import net.suntrans.smartbuilding.adapter.FragmentAdapter;
 
 /**
  * Created by Administrator on 2017/8/9.
@@ -42,14 +39,15 @@ public class AreaFragment extends RxFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        AreaFragmentAdapter adapter = new AreaFragmentAdapter(getChildFragmentManager());
+        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager());
         adapter.addFragment(ModeFragment.newInstance(url),"模式");
-        adapter.addFragment(ModeFragment.newInstance(url),"照明");
-        adapter.addFragment(ModeFragment.newInstance(url),"空调");
-        adapter.addFragment(ModeFragment.newInstance(url),"氙气灯");
-        url = getArguments().getString("url");
+        adapter.addFragment(LightFragment.newInstance(url),"照明");
+        adapter.addFragment(AirConditioningFragment.newInstance(url),"空调");
+        adapter.addFragment(new XenonFragment(),"氙气灯");
+        adapter.addFragment(ModeFragment.newInstance(url),"第六感");
+        adapter.addFragment(ModeFragment.newInstance(url),"其他");
 
-        ViewPager viewPager = (IViewPager) view.findViewById(R.id.viewPager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
         viewPager.setAdapter(adapter);
 

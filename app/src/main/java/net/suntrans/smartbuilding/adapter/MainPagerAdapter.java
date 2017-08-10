@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import net.suntrans.smartbuilding.fragment.AnalysisFragment;
 import net.suntrans.smartbuilding.fragment.ControlFragment;
 import net.suntrans.smartbuilding.fragment.SmartFragment;
+import net.suntrans.smartbuilding.fragment.UserCenterFragment;
 
 /**
  * Created by Looney on 2017/7/20.
@@ -19,7 +20,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         ControlFragment fragment1 = new ControlFragment();
         AnalysisFragment fragment2 = new AnalysisFragment();
         SmartFragment fragment3 = new SmartFragment();
-        ControlFragment fragment4 = new ControlFragment();
+        UserCenterFragment fragment4 = new UserCenterFragment();
         fragments = new Fragment[]{fragment1, fragment2, fragment3, fragment4};
     }
 

@@ -7,21 +7,26 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="@dimen/actionbarAndStatusSize"
         android:background="@drawable/bg_toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/actionBarSize"
             android:layout_alignParentBottom="true">
 
-            <ImageView
+            <RelativeLayout
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/ic_back" />
+                android:layout_width="60dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/ic_back" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,10 +48,10 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:background="@color/bgColor"
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bgColor">
 
     </FrameLayout>
 </LinearLayout>

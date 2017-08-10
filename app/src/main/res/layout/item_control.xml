@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:orientation="vertical">
 
     <ImageView
+        android:scaleType="fitXY"
         android:id="@+id/decoration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

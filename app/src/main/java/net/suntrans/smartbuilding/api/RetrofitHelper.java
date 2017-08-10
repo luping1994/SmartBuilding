@@ -19,6 +19,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.chad.library.adapter.base.listener.SimpleClickListener.TAG;
+
 /**
  * Created by Looney on 2016/12/15.
  */
@@ -92,7 +94,7 @@ public class RetrofitHelper {
         FormBody.Builder builder = new FormBody.Builder();
         String header = App.getSharedPreferences().getString("token", "raVnKIh8Rv");
         String group = App.getSharedPreferences().getString("group", "raVnKIh8Rv");
-
+        LogUtil.i("token",header);
         builder.add("token", header);
         builder.add("group", group);
 
