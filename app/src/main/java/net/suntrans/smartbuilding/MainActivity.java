@@ -8,14 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.suntrans.smartbuilding.adapter.MainPagerAdapter;
-import net.suntrans.smartbuilding.model.LoginEntity;
-import net.suntrans.smartbuilding.widgets.IViewPager;
-
-import retrofit2.Retrofit;
+import net.suntrans.smartbuilding.ui.adapter.MainPagerAdapter;
+import net.suntrans.smartbuilding.ui.widgets.IViewPager;
 
 import static android.support.design.widget.TabLayout.GRAVITY_FILL;
 import static android.support.design.widget.TabLayout.MODE_FIXED;
@@ -49,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         vp.setOffscreenPageLimit(3);
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
-//        tabLayout.setupWithViewPager(vp);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

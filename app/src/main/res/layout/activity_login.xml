@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center"
-        android:text="三川智能建筑"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="24sp" />
 
@@ -38,13 +38,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/icon_user" />
 
-        <net.suntrans.smartbuilding.widgets.EditView
+        <net.suntrans.smartbuilding.ui.widgets.EditView
             android:id="@+id/account"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"
             android:background="@null"
-            android:hint="手机号码/用户名"
+            android:hint="@string/login_tx_account"
             android:maxLength="18"
             android:maxLines="1"
             android:paddingLeft="8dp"
@@ -72,13 +72,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/icon_password" />
 
-        <net.suntrans.smartbuilding.widgets.EditView
+        <net.suntrans.smartbuilding.ui.widgets.EditView
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"
             android:background="@null"
-            android:hint="密码"
+            android:hint="@string/login_tx_password"
             android:inputType="textPassword"
             android:maxLength="18"
             android:maxLines="1"

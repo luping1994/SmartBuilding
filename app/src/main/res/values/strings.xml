@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">三川智慧建筑</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="app_name">三川智能建筑</string>
     <string name="nav_zk">控制</string>
     <string name="nav_fenxi">分析</string>
     <string name="nav_zn">智能</string>
     <string name="nav_user">我的</string>
     <string name="TxLogin">登 录</string>
+    <string name="title_global">全局控制</string>
+    <string name="title_my_area">我的区域</string>
+    <string name="login_tx_account">手机号码/用户名</string>
+    <string name="login_tx_password">密码</string>
+    <string name="title_user_center">个人中心</string>
 </resources>

@@ -94,9 +94,11 @@ public class RetrofitHelper {
         FormBody.Builder builder = new FormBody.Builder();
         String header = App.getSharedPreferences().getString("token", "raVnKIh8Rv");
         String group = App.getSharedPreferences().getString("group", "raVnKIh8Rv");
+        String id = App.getSharedPreferences().getString("id", "-1");
         LogUtil.i("token",header);
         builder.add("token", header);
         builder.add("group", group);
+        builder.add("id", id);
 
         //添加原请求体
         for (int i = 0; i < body.size(); i++) {
