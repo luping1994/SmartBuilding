@@ -13,6 +13,7 @@ public class App extends Application {
 
     private static SharedPreferences mSharedPreferences;
     private static Application application;
+    private static Application application2;
 
     public static SharedPreferences getSharedPreferences() {
         if (mSharedPreferences==null){
