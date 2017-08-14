@@ -41,7 +41,6 @@ public class SmartFragment extends RxFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_smart,container,false);
         RelativeLayout toolBar = (RelativeLayout)view. findViewById(R.id.toolbar);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
             lp.height = getResources().getDimensionPixelSize(R.dimen.actionbarAndStatusSize);
@@ -52,7 +51,7 @@ public class SmartFragment extends RxFragment {
             toolBar.setLayoutParams(lp);
         }
         TextView title = (TextView) view.findViewById(R.id.title);
-        title.setText("智能生活");
+        title.setText(R.string.smartlife);
         return view;
     }
 

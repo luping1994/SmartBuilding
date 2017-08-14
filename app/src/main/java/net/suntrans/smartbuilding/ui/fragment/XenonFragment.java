@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Administrator on 2017/8/10.
  */
 
-public class XenonFragment extends BasedFragment<XenonEntity>{
+public class XenonFragment extends AreaBasedFragment<XenonEntity> {
 
     @Override
     protected int getLayoutId() {

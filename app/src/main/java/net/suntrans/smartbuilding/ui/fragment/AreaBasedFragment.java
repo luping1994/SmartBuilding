@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Administrator on 2017/8/9.
  */
 
-public class BasedFragment<T> extends RxFragment {
+public class AreaBasedFragment<T> extends RxFragment {
 
     protected final String TAG = getClass().getSimpleName();
     protected String url;
@@ -47,18 +47,19 @@ public class BasedFragment<T> extends RxFragment {
         adapter = new RecyclerViewAdapter<T>(getRecyclerViewItemId(), datas) {
             @Override
             protected void convert(BaseViewHolder helper, T item) {
-                BasedFragment.this.convert(helper, item);
+                AreaBasedFragment.this.convert(helper, item);
             }
         };
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BasedFragment.this.onItemClick(adapter,view,position);
+                AreaBasedFragment.this.onItemClick(adapter,view,position);
             }
         });
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+        super.onViewCreated(view,savedInstanceState);
     }
 
     protected int getLayoutId() {

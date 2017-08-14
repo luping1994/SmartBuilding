@@ -5,6 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.trello.rxlifecycle.components.support.RxFragment;
+
+import net.suntrans.smartbuilding.utils.LogUtil;
+
 /**
  * Created by Looney on 2016/9/27.
  *
@@ -16,12 +20,12 @@ import android.view.View;
  * @see #onFragmentVisibleChange(boolean)
  * @see #onFragmentFirstVisible()
  */
-public abstract class LazyLoadFragment extends Fragment {
+public abstract class LazyLoadFragment extends RxFragment {
 
     private static final String TAG = LazyLoadFragment.class.getSimpleName();
 
     private boolean isFirstEnter = true;//是否是第一次进入,默认是
-    private boolean isReuseView = true ;//是否进行复用，默认复用
+    private boolean isReuseView = false ;//是否进行复用，默认复用
     private boolean isFragmentVisible;
     private View rootView;
 
@@ -33,8 +37,11 @@ public abstract class LazyLoadFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+
+
         //setUserVisibleHint()有可能在fragment的生命周期外被调用
         if (rootView == null) {
+            System.out.println("rootView为空");
             //如果view还未初始化，不进行处理
             return;
         }
@@ -43,7 +50,6 @@ public abstract class LazyLoadFragment extends Fragment {
             //如果是第一次进入并且可见
             onFragmentFirstVisible();//回调当前fragment首次可见
             isFirstEnter = false;//第一次进入的标识改为false
-            return;
         }
         if (isVisibleToUser) {
             //如果不是第一次进入，可见的时候

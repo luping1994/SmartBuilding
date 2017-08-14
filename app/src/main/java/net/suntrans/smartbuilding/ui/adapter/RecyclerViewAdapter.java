@@ -20,6 +20,8 @@ public class RecyclerViewAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> 
 
     @Override
     protected void convert(BaseViewHolder helper, T item) {
+
     }
+
 
 }

@@ -22,6 +22,8 @@ import net.suntrans.smartbuilding.ui.activity.MyAreaActivity;
 import net.suntrans.smartbuilding.ui.adapter.ControlAdapter;
 import net.suntrans.smartbuilding.api.RetrofitHelper;
 import net.suntrans.smartbuilding.data.MenuItemEntity;
+import net.suntrans.smartbuilding.ui.base.BasedFragment;
+import net.suntrans.smartbuilding.ui.presenter.ControlContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,20 +36,19 @@ import rx.schedulers.Schedulers;
  * Created by Administrator on 2017/8/8.
  */
 
-public class ControlFragment extends RxFragment {
+public class ControlFragment extends BasedFragment implements ControlContract.View{
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<MenuItemEntity.MenuBean> datas;
     private ControlAdapter adapter;
+    private ControlContract.Presenter presenter;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment, container, false);
-        return view;
+    public int getLayoutRes() {
+        return R.layout.fragment;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
@@ -78,56 +79,49 @@ public class ControlFragment extends RxFragment {
             }
         });
         recyclerView.setAdapter(adapter);
+        super.onViewCreated(view,savedInstanceState);
+    }
 
+
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        presenter.loadData("1");
     }
 
     @Override
-    public void onResume() {
-        getData("1");
-        super.onResume();
+    public void onRetryClick() {
+        super.onRetryClick();
+        presenter.loadData("1");
     }
 
-    private void getData(String menuid) {
-        RetrofitHelper.getApi().getMenuItem(menuid)
-                .compose(this.<MenuItemEntity>bindToLifecycle())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<MenuItemEntity>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
+    @Override
+    public void setPresenter(ControlContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-//                        swipeRefreshLayout.setRefreshing(false);
-                    }
+    @Override
+    public void showEmpty() {
+        stateView.showEmpty();
+    }
 
-                    @Override
-                    public void onNext(MenuItemEntity entity) {
-//                        swipeRefreshLayout.setRefreshing(false);
-                        if (entity.getStatus() == 1) {
-                            datas.clear();
-                            datas.addAll(entity.getMenu());
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            if (entity.getMsg().equals("用户信息错误")) {
-                                new AlertDialog.Builder(getContext())
-                                        .setCancelable(false)
-                                        .setMessage("您的身份信息已过期,请重新登录")
-                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                App.getSharedPreferences().edit().clear().commit();
-                                                getActivity().finish();
-                                                startActivity(new Intent(getActivity(), LoginActivity.class));
-                                            }
-                                        }).create().show();
-                            }
-                        }
+    @Override
+    public void showLoading() {
+        stateView.showLoading();
+    }
 
-                    }
-                });
+    @Override
+    public void showRetry() {
+        stateView.showRetry();
+    }
+
+    @Override
+    public void showContent(List<MenuItemEntity.MenuBean> data) {
+        datas.clear();
+        datas.addAll(data);
+        adapter.notifyDataSetChanged();
+        stateView.showContent();
     }
 }

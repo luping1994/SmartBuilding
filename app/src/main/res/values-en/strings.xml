@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Suntrans SmartBuilding</string>
+    <string name="nav_zk">Control</string>
+    <string name="nav_fenxi">Analysis</string>
+    <string name="nav_zn">Smart</string>
+    <string name="nav_user">User</string>
+    <string name="TxLogin">Sign in</string>
+    <string name="title_global">Global Control</string>
+    <string name="title_my_area">Area</string>
+    <string name="login_tx_account">Tel.num/Account</string>
+    <string name="login_tx_password">Password</string>
+    <string name="title_user_center">User Center</string>
+    <string name="nav_title_analysis">Analysis</string>
+    <string name="tips_isempty">No data</string>
+    <string name="smartlife">Smart Life</string>
+</resources>

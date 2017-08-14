@@ -29,7 +29,7 @@ public class RetrofitHelper {
 
 
     //public static final String BASE_URL = "http://www.suntrans.net:8956";
-    public static final String BASE_URL = "http://183.236.25.190:8090/interface/V1/Mobile_Data/";
+    public static final String BASE_URL = "http://183.236.25.190:8090/interface/V1/";
 //    public static final String BASE_URL2 = "http://adminiot.suntrans-cloud.com/";
 
     private static OkHttpClient mOkHttpClient;
@@ -104,7 +104,6 @@ public class RetrofitHelper {
         for (int i = 0; i < body.size(); i++) {
             builder.addEncoded(body.encodedName(i), body.encodedValue(i));
         }
-        LogUtil.i(header);
         return builder.build();
     }
 }

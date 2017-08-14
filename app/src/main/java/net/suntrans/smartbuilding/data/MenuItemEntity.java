@@ -60,7 +60,7 @@ public class MenuItemEntity {
         private String li_parent;
         private String li_order;
         private String li_url;
-        private Object li_img;
+        private String li_img;
         private String li_status;
 
         public String getLi_id() {
@@ -111,11 +111,11 @@ public class MenuItemEntity {
             this.li_url = li_url;
         }
 
-        public Object getLi_img() {
+        public String getLi_img() {
             return li_img;
         }
 
-        public void setLi_img(Object li_img) {
+        public void setLi_img(String li_img) {
             this.li_img = li_img;
         }
 

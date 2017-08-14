@@ -14,12 +14,16 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import net.suntrans.smartbuilding.R;
 import net.suntrans.smartbuilding.ui.fragment.AreaFragment;
 import net.suntrans.smartbuilding.ui.fragment.MenuFragment;
+import net.suntrans.smartbuilding.ui.presenter.impl.MenuPresenter;
+import net.suntrans.smartbuilding.utils.ActivityUtils;
 
 /**
  * Created by Administrator on 2017/8/9.
  */
 public class MenuActivity extends RxAppCompatActivity {
-    private final String AREALIST ="AREALIST";
+
+    private MenuPresenter presenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +42,27 @@ public class MenuActivity extends RxAppCompatActivity {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
             lp.height = getResources().getDimensionPixelSize(R.dimen.actionbarAndStatusSize);
             toolBar.setLayoutParams(lp);
-        }else {
+        } else {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
             lp.height = getResources().getDimensionPixelSize(R.dimen.actionBarSize);
             toolBar.setLayoutParams(lp);
         }
         TextView tv = (TextView) findViewById(R.id.title);
-        tv.setText(getIntent().getStringExtra("menu"));
-        MenuFragment fragment =  MenuFragment.newInstance(getIntent().getStringExtra("menuid"));
-        getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment,AREALIST)
-                .commit();
+        tv.setText(getIntent().getStringExtra("name"));
+
+
+        MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment == null) {
+            fragment = MenuFragment.newInstance(getIntent().getStringExtra("menuid"));
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.content);
+        }
+        presenter = new MenuPresenter(fragment);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onUnsubscribe();
     }
 }

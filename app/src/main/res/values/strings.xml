@@ -10,4 +10,7 @@
     <string name="login_tx_account">手机号码/用户名</string>
     <string name="login_tx_password">密码</string>
     <string name="title_user_center">个人中心</string>
+    <string name="nav_title_analysis">分析</string>
+    <string name="tips_isempty">暂无数据</string>
+    <string name="smartlife">智能生活</string>
 </resources>
