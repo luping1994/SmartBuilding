@@ -18,6 +18,9 @@ import net.suntrans.smartbuilding.data.LoginEntity;
 import net.suntrans.smartbuilding.utils.UiUtils;
 import net.suntrans.smartbuilding.ui.widgets.EditView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -76,8 +79,14 @@ public class LoginActivity extends RxAppCompatActivity {
     }
 
     private void login(String  account,String password) {
+        Map<String,String> map = new HashMap<>();
+        map.put("username",account);
+        map.put("password",password);
+        map.put("client_id","testclient");
+        map.put("client_secret","testpass");
+        map.put("grant_type","authorization_code");
         RetrofitHelper.getApi()
-                .login(account,password)
+                .login(map)
                 .compose(this.<LoginEntity>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,17 +104,15 @@ public class LoginActivity extends RxAppCompatActivity {
 
                     @Override
                     public void onNext(LoginEntity entity) {
-                        if (entity.status==1){
-                            App.getSharedPreferences().edit().putString("token",entity.data.token)
-                                    .putString("group",entity.data.group)
-                                    .putString("id",entity.data.id)
+                        if (entity.getStatus()==1){
+                            App.getSharedPreferences().edit().putString("token",entity.getData().getAccess_token())
                                     .commit();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
 
                         }else {
-                            UiUtils.showToast(entity.msg);
+                            UiUtils.showToast(entity.getMsg());
                         }
                     }
                 });

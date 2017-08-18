@@ -56,13 +56,17 @@ public class RetrofitHelper {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
 
-
+                        String header = App.getSharedPreferences().getString("token", "-1");
+                        header = "Bearer " + header;
+                        LogUtil.i(header);
                         Request original = chain.request();
+
                         RequestBody newBody = original.body();
                         if (original.body() instanceof FormBody) {
                             newBody = addParamsToFormBody((FormBody) original.body());
                         }
                         Request newRequest = original.newBuilder()
+                                .header("Authorization", header)
                                 .method(original.method(), newBody)
                                 .build();
 

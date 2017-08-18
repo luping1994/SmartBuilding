@@ -5,7 +5,10 @@ import net.suntrans.smartbuilding.data.LoginEntity;
 import net.suntrans.smartbuilding.data.MenuItemEntity;
 import net.suntrans.smartbuilding.data.SceneEntity;
 
+import java.util.Map;
+
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
@@ -19,10 +22,8 @@ public interface Api {
 
 
     @FormUrlEncoded
-    @POST("Mobile_Data/login_info")
-    Observable<LoginEntity> login(@Field("uname") String uname,
-                                  @Field("upwd") String upwd
-    );
+    @POST("Login/Login?response_type=code&client_id=testclient&state=xyz")
+    Observable<LoginEntity> login(@FieldMap Map<String ,String> map);
 
     @FormUrlEncoded
     @POST("Mobile_Data/menu_info")
