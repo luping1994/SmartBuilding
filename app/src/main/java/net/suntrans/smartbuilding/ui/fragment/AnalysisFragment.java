@@ -7,37 +7,32 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.squareup.picasso.Picasso;
-import com.trello.rxlifecycle.components.support.RxFragment;
+
 import net.suntrans.smartbuilding.R;
-import net.suntrans.smartbuilding.ui.activity.MenuActivity;
-import net.suntrans.smartbuilding.ui.adapter.ControlAdapter;
-import net.suntrans.smartbuilding.ui.adapter.DividerItemDecoration;
-import net.suntrans.smartbuilding.ui.adapter.RecyclerViewAdapter;
 import net.suntrans.smartbuilding.api.RetrofitHelper;
 import net.suntrans.smartbuilding.data.MenuItemEntity;
+import net.suntrans.smartbuilding.ui.activity.MenuActivity;
+import net.suntrans.smartbuilding.ui.adapter.DividerItemDecoration;
+import net.suntrans.smartbuilding.ui.adapter.RecyclerViewAdapter;
 import net.suntrans.smartbuilding.ui.base.BasedFragment;
-import net.suntrans.smartbuilding.ui.base.LazyLoadFragment;
 import net.suntrans.smartbuilding.utils.UiUtils;
-import net.suntrans.stateview.StateView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
 /**
  * Created by Administrator on 2017/8/8.
  */
@@ -82,10 +77,10 @@ public class AnalysisFragment extends BasedFragment {
             @Override
             protected void convert(BaseViewHolder helper, MenuItemEntity.MenuBean item) {
                 helper.setText(R.id.title,item.getLi_name());
-                Picasso.with(getContext())
+                Glide.with(AnalysisFragment.this)
                         .load(item.getLi_img())
                         .placeholder(R.drawable.analysys)
-                        .resize(getResources().getDimensionPixelSize(R.dimen.menuItemPicSize),getResources().getDimensionPixelSize(R.dimen.menuItemPicSize))
+                        .override(getResources().getDimensionPixelSize(R.dimen.menuItemPicSize),getResources().getDimensionPixelSize(R.dimen.menuItemPicSize))
                         .into((ImageView) helper.getView(R.id.image));
             }
         };

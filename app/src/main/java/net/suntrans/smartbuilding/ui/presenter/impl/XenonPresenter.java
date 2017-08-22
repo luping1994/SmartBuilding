@@ -1,20 +1,21 @@
 package net.suntrans.smartbuilding.ui.presenter.impl;
 
-import net.suntrans.smartbuilding.data.SceneEntity;
-import net.suntrans.smartbuilding.ui.presenter.SceneContract;
+import net.suntrans.smartbuilding.data.XenonEntity;
+import net.suntrans.smartbuilding.ui.presenter.XenonContract;
 import net.suntrans.smartbuilding.utils.ListUtils;
 
 import rx.Subscriber;
 
 /**
  * Created by Administrator on 2017/8/14.
+ * 我的区域->氙气灯 Presenter
  */
 
-public class ScenePresenter extends BasedPresenterImpl implements SceneContract.Presenter {
+public class XenonPresenter extends BasedPresenterImpl implements XenonContract.Presenter {
 
-    private SceneContract.View mView;
+    private XenonContract.View mView;
 
-    public ScenePresenter(SceneContract.View mView) {
+    public XenonPresenter(XenonContract.View mView) {
         this.mView = mView;
         mView.setPresenter(this);
     }
@@ -22,7 +23,7 @@ public class ScenePresenter extends BasedPresenterImpl implements SceneContract.
     @Override
     public void loadData() {
         mView.showLoading();
-        addSubscription(api.getMyareaScene(), new Subscriber<SceneEntity>() {
+        addSubscription(api.getMyareaXenon(), new Subscriber<XenonEntity>() {
             @Override
             public void onCompleted() {
 
@@ -35,19 +36,19 @@ public class ScenePresenter extends BasedPresenterImpl implements SceneContract.
             }
 
             @Override
-            public void onNext(SceneEntity o) {
-                if (ListUtils.isEmpty(o.getData())){
+            public void onNext(XenonEntity o) {
+                if (ListUtils.isEmpty(o.data)){
                     mView.showEmpty();
                 }else {
-                    mView.showContent(o.getData());
+                    mView.showContent(o.data);
                 }
             }
         });
     }
 
     @Override
-    public boolean performSceneAction(String sceneId) {
-        return false;
+    public void onItemClick(String sceneId) {
+
     }
 
     @Override

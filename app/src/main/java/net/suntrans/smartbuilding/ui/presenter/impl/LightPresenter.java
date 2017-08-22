@@ -1,6 +1,8 @@
 package net.suntrans.smartbuilding.ui.presenter.impl;
 
+import net.suntrans.smartbuilding.data.LightEntity;
 import net.suntrans.smartbuilding.data.SceneEntity;
+import net.suntrans.smartbuilding.ui.presenter.LightContract;
 import net.suntrans.smartbuilding.ui.presenter.SceneContract;
 import net.suntrans.smartbuilding.utils.ListUtils;
 
@@ -10,11 +12,11 @@ import rx.Subscriber;
  * Created by Administrator on 2017/8/14.
  */
 
-public class ScenePresenter extends BasedPresenterImpl implements SceneContract.Presenter {
+public class LightPresenter extends BasedPresenterImpl implements LightContract.Presenter {
 
-    private SceneContract.View mView;
+    private LightContract.View mView;
 
-    public ScenePresenter(SceneContract.View mView) {
+    public LightPresenter(LightContract.View mView) {
         this.mView = mView;
         mView.setPresenter(this);
     }
@@ -22,7 +24,7 @@ public class ScenePresenter extends BasedPresenterImpl implements SceneContract.
     @Override
     public void loadData() {
         mView.showLoading();
-        addSubscription(api.getMyareaScene(), new Subscriber<SceneEntity>() {
+        addSubscription(api.getMyareaLight(), new Subscriber<LightEntity>() {
             @Override
             public void onCompleted() {
 
@@ -35,7 +37,7 @@ public class ScenePresenter extends BasedPresenterImpl implements SceneContract.
             }
 
             @Override
-            public void onNext(SceneEntity o) {
+            public void onNext(LightEntity o) {
                 if (ListUtils.isEmpty(o.getData())){
                     mView.showEmpty();
                 }else {
@@ -46,16 +48,19 @@ public class ScenePresenter extends BasedPresenterImpl implements SceneContract.
     }
 
     @Override
-    public boolean performSceneAction(String sceneId) {
+    public boolean performSwitchAction(String deviceId) {
         return false;
     }
 
+
     @Override
     public void start() {
+
     }
 
     @Override
     public void stop() {
         onUnsubscribe();
     }
+
 }

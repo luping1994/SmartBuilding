@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.squareup.picasso.Picasso;
 
 import net.suntrans.smartbuilding.R;
 import net.suntrans.smartbuilding.data.MenuItemEntity;
@@ -59,10 +59,10 @@ public class MenuFragment extends BasedFragment implements MenuContract.View{
             @Override
             protected void convert(BaseViewHolder helper, MenuItemEntity.MenuBean item) {
                 helper.setText(R.id.title, item.getLi_name());
-                Picasso.with(getContext())
+                Glide.with(MenuFragment.this)
                         .load(item.getLi_img())
                         .placeholder(R.drawable.analysys)
-                        .resize(getResources().getDimensionPixelSize(R.dimen.menuItemPicSize),getResources().getDimensionPixelSize(R.dimen.menuItemPicSize))
+                        .override(getResources().getDimensionPixelSize(R.dimen.menuItemPicSize),getResources().getDimensionPixelSize(R.dimen.menuItemPicSize))
                         .into((ImageView) helper.getView(R.id.image));
             }
         };
@@ -118,10 +118,22 @@ public class MenuFragment extends BasedFragment implements MenuContract.View{
     }
 
     @Override
+    public void receiveWebSocketMsg(String msg) {
+
+    }
+
+    @Override
     public void showContent(List<MenuItemEntity.MenuBean> data) {
         datas.clear();
         datas.addAll(data);
         adapter.notifyDataSetChanged();
         stateView.showContent();
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.stop();
+        presenter=null;
+        super.onDestroyView();
     }
 }

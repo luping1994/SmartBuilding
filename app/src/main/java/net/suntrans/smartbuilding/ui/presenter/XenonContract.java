@@ -1,15 +1,13 @@
 package net.suntrans.smartbuilding.ui.presenter;
 
-import net.suntrans.smartbuilding.data.SceneEntity;
-
-import java.util.List;
+import net.suntrans.smartbuilding.data.XenonEntity;
 
 /**
  * Created by Administrator on 2017/8/14.
- * 我的区域->场景Contract
+ * 我的区域->氙气灯Contract
  */
-public interface SceneContract {
-    interface View extends BaseView<Presenter, SceneEntity.Scene> {
+public interface XenonContract {
+    interface View extends BaseView<Presenter, XenonEntity.DataBean> {
     }
 
     interface Presenter extends BasePresenter {
@@ -20,11 +18,10 @@ public interface SceneContract {
         void loadData();
 
         /**
-         * 执行场景
          *
          * @param sceneId
          * @return
          */
-        boolean performSceneAction(String sceneId);
+        void onItemClick(String sceneId);
     }
 }

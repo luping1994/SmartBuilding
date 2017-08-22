@@ -171,11 +171,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
                 parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
                 final int right = mBounds.right + Math.round(ViewCompat.getTranslationX(child));
                 final int left = right - offset;
-                canvas.drawRect(new RectF(left, top, right, bottom), mPaint);
+                canvas.drawRect(new RectF(left, child.getTop(), right, child.getBottom()), mPaint);
             }
         } else {
             for (int i = 0; i < childCount; i++) {
-
                 final View child = parent.getChildAt(i);
                 parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
                 final int right = mBounds.right + Math.round(ViewCompat.getTranslationX(child));

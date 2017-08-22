@@ -19,4 +19,5 @@ package net.suntrans.smartbuilding.ui.presenter;
 public interface BasePresenter {
 
     void start();
+    void stop();
 }

@@ -48,4 +48,9 @@ public class MenuPresenter extends BasedPresenterImpl implements MenuContract.Pr
     @Override
     public void start() {
     }
+
+    @Override
+    public void stop() {
+        onUnsubscribe();
+    }
 }

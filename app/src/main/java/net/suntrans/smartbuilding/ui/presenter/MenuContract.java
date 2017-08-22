@@ -9,8 +9,7 @@ import java.util.List;
  */
 
 public interface MenuContract {
-    interface View extends BaseView<Presenter> {
-        void showContent(List<MenuItemEntity.MenuBean> datas);
+    interface View extends BaseView<Presenter,MenuItemEntity.MenuBean> {
     }
 
     interface Presenter extends BasePresenter {

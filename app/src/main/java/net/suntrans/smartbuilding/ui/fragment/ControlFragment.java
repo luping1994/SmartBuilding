@@ -1,5 +1,6 @@
 package net.suntrans.smartbuilding.ui.fragment;
 
+import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.trello.rxlifecycle.components.support.RxFragment;
@@ -36,7 +39,7 @@ import rx.schedulers.Schedulers;
  * Created by Administrator on 2017/8/8.
  */
 
-public class ControlFragment extends BasedFragment implements ControlContract.View{
+public class ControlFragment extends BasedFragment implements ControlContract.View {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -49,10 +52,10 @@ public class ControlFragment extends BasedFragment implements ControlContract.Vi
     public int getLayoutRes() {
         return R.layout.fragment;
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
-
 //        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLayout);
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -62,15 +65,14 @@ public class ControlFragment extends BasedFragment implements ControlContract.Vi
 //        });
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         adapter = new ControlAdapter(R.layout.item_control, datas);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (datas.get(position).getLi_url().equals("MyArea")) {
                     Intent intent = new Intent(getActivity(), MyAreaActivity.class);
                     intent.putExtra("url", datas.get(position).getLi_url());
                     startActivity(intent);
                 } else {
-
                     Intent intent = new Intent(getActivity(), MenuActivity.class);
                     intent.putExtra("menuid", datas.get(position).getLi_id());
                     intent.putExtra("name", datas.get(position).getLi_name());
@@ -78,10 +80,10 @@ public class ControlFragment extends BasedFragment implements ControlContract.Vi
                 }
             }
         });
-        recyclerView.setAdapter(adapter);
-        super.onViewCreated(view,savedInstanceState);
-    }
 
+        recyclerView.setAdapter(adapter);
+        super.onViewCreated(view, savedInstanceState);
+    }
 
 
     @Override
@@ -118,10 +120,22 @@ public class ControlFragment extends BasedFragment implements ControlContract.Vi
     }
 
     @Override
+    public void receiveWebSocketMsg(String msg) {
+
+    }
+
+    @Override
     public void showContent(List<MenuItemEntity.MenuBean> data) {
         datas.clear();
         datas.addAll(data);
         adapter.notifyDataSetChanged();
         stateView.showContent();
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.stop();
+        presenter=null;
+        super.onDestroyView();
     }
 }

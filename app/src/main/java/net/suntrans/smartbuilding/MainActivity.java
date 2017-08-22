@@ -1,5 +1,6 @@
 package net.suntrans.smartbuilding;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBottomBar() {
-
         tabLayout = (TabLayout) findViewById(R.id.main_tabLayout);
         tabLayout.setTabMode(MODE_FIXED);
         tabLayout.setTabGravity(GRAVITY_FILL);

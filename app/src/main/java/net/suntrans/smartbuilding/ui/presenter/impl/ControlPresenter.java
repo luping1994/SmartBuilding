@@ -49,4 +49,10 @@ public class ControlPresenter extends BasedPresenterImpl implements ControlContr
     @Override
     public void start() {
     }
+
+    @Override
+    public void stop() {
+        onUnsubscribe();
+    }
+
 }
