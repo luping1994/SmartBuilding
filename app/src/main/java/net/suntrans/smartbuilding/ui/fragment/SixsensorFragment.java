@@ -8,16 +8,19 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.smartbuilding.R;
-import net.suntrans.smartbuilding.data.SceneEntity;
+import net.suntrans.smartbuilding.data.SixSensor;
+import net.suntrans.smartbuilding.data.SocketEntity;
 import net.suntrans.smartbuilding.ui.adapter.DividerItemDecoration;
 import net.suntrans.smartbuilding.ui.adapter.RecyclerViewAdapter;
 import net.suntrans.smartbuilding.ui.base.BasedFragment;
-import net.suntrans.smartbuilding.ui.presenter.SceneContract;
-import net.suntrans.smartbuilding.utils.UiUtils;
+import net.suntrans.smartbuilding.ui.presenter.SixsensorContract;
+import net.suntrans.smartbuilding.ui.presenter.SocketContract;
+import net.suntrans.stateview.StateView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +29,16 @@ import java.util.List;
  * Created by Administrator on 2017/8/9.
  */
 
-public class SceneFragment extends BasedFragment implements SceneContract.View {
+public class SixsensorFragment extends BasedFragment implements SixsensorContract.View {
     private final String TAG = getClass().getSimpleName();
     private RecyclerView recyclerView;
-    private List<SceneEntity.Scene> datas;
-    private SceneContract.Presenter presenter;
-    private RecyclerViewAdapter<SceneEntity.Scene> adapter;
+    private List<SixSensor.DataBean> datas;
+    private SixsensorContract.Presenter presenter;
+    private RecyclerViewAdapter<SixSensor.DataBean> adapter;
+    private RequestManager manager;
 
-    public static SceneFragment newInstance(String url) {
-        SceneFragment fragment = new SceneFragment();
+    public static SixsensorFragment newInstance(String url) {
+        SixsensorFragment fragment = new SixsensorFragment();
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
         fragment.setArguments(bundle);
@@ -42,38 +46,35 @@ public class SceneFragment extends BasedFragment implements SceneContract.View {
     }
 
     @Override
-    public void onRetryClick() {
-        presenter.loadData();
-
-    }
-
-    @Override
     public int getLayoutRes() {
-        return R.layout.fragment_mode;
+        return R.layout.fragment_socket;
     }
 
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         datas = new ArrayList<>();
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        adapter = new RecyclerViewAdapter<SceneEntity.Scene>(R.layout.item_mode, datas) {
+        manager = Glide.with(SixsensorFragment.this);
+
+        stateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
             @Override
-            protected void convert(BaseViewHolder helper, SceneEntity.Scene item) {
-                helper.setText(R.id.name, item.getName());
-                Glide.with(SceneFragment.this)
-                        .load(item.getImg_url())
-                        .placeholder(R.drawable.icon_xiaban)
-                        .override(getResources().getDimensionPixelSize(R.dimen.menuItemPicSize), getResources().getDimensionPixelSize(R.dimen.menuItemPicSize))
-                        .into((ImageView) helper.getView(R.id.image));
+            public void onRetryClick() {
+                presenter.loadData();
+            }
+        });
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
+        adapter = new RecyclerViewAdapter<SixSensor.DataBean>(R.layout.item_sixsensor, datas) {
+            @Override
+            protected void convert(BaseViewHolder helper, SixSensor.DataBean item) {
+                helper.setText(R.id.name, item.name);
             }
         };
-        adapter.openLoadAnimation();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                presenter.performSceneAction(datas.get(position).getId());
-                UiUtils.showToast(datas.get(position).getName());
+
             }
         });
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -83,31 +84,36 @@ public class SceneFragment extends BasedFragment implements SceneContract.View {
 
     @Override
     protected void onFragmentFirstVisible() {
-        super.onFragmentFirstVisible();
-        if (presenter != null)
-            presenter.loadData();
+        presenter.loadData();
     }
 
     @Override
-    public void setPresenter(SceneContract.Presenter presenter) {
+    public void onRetryClick() {
+        presenter.loadData();
+    }
+
+    @Override
+    public void setPresenter(SixsensorContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public void showEmpty() {
         stateView.showEmpty();
+        recyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showLoading() {
         stateView.showLoading();
+        recyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showRetry() {
-        System.out.println("showRetry");
-
         stateView.showRetry();
+        recyclerView.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -115,26 +121,29 @@ public class SceneFragment extends BasedFragment implements SceneContract.View {
 
     }
 
+
     @Override
-    public void showContent(List<SceneEntity.Scene> data) {
-        if (data.size()<2){
+    public void showContent(List<SixSensor.DataBean> data) {
+        if (data.size()<3){
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(),data.size()));
         }else {
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         }
         if (recyclerView.getAdapter()==null){
             recyclerView.setAdapter(adapter);
         }
-        stateView.showContent();
-        this.datas.clear();
-        this.datas.addAll(data);
+        datas.clear();
+        datas.addAll(data);
         adapter.notifyDataSetChanged();
+        stateView.showContent();
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onDestroyView() {
         presenter.stop();
-        presenter=null;
+        presenter = null;
         super.onDestroyView();
     }
+
 }

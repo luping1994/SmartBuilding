@@ -1,39 +1,26 @@
 package net.suntrans.smartbuilding.ui.fragment;
 
-import android.animation.Animator;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.trello.rxlifecycle.components.support.RxFragment;
 
-import net.suntrans.smartbuilding.App;
+import net.suntrans.smartbuilding.Constant;
 import net.suntrans.smartbuilding.R;
-import net.suntrans.smartbuilding.ui.activity.LoginActivity;
-import net.suntrans.smartbuilding.ui.activity.MenuActivity;
-import net.suntrans.smartbuilding.ui.activity.MyAreaActivity;
+import net.suntrans.smartbuilding.ui.activity.GlobalConActivity;
+import net.suntrans.smartbuilding.ui.activity.ConSpecificActivity;
 import net.suntrans.smartbuilding.ui.adapter.ControlAdapter;
-import net.suntrans.smartbuilding.api.RetrofitHelper;
 import net.suntrans.smartbuilding.data.MenuItemEntity;
 import net.suntrans.smartbuilding.ui.base.BasedFragment;
 import net.suntrans.smartbuilding.ui.presenter.ControlContract;
+import net.suntrans.smartbuilding.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/8/8.
@@ -56,26 +43,18 @@ public class ControlFragment extends BasedFragment implements ControlContract.Vi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
-//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLayout);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                getData();
-//            }
-//        });
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         adapter = new ControlAdapter(R.layout.item_control, datas);
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (datas.get(position).getLi_url().equals("MyArea")) {
-                    Intent intent = new Intent(getActivity(), MyAreaActivity.class);
-                    intent.putExtra("url", datas.get(position).getLi_url());
+                LogUtil.i(datas.get(position).getLi_url());
+                if (datas.get(position).getLi_url().equals("Mobile_Data/MyArea")) {
+                    Intent intent = new Intent(getActivity(), ConSpecificActivity.class);
+                    intent.putExtra("type", Constant.TYPE_MYAREA);
                     startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), MenuActivity.class);
-                    intent.putExtra("menuid", datas.get(position).getLi_id());
-                    intent.putExtra("name", datas.get(position).getLi_name());
+                } else if (datas.get(position).getLi_name().equals("全局控制")){
+                    Intent intent = new Intent(getActivity(), GlobalConActivity.class);
                     startActivity(intent);
                 }
             }

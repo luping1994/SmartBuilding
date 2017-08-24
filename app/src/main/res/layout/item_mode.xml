@@ -8,13 +8,15 @@
     android:background="?attr/selectableItemBackground">
 
     <RelativeLayout
+
         android:id="@+id/a"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/circle">
 
         <ImageView
+
             android:id="@+id/image"
             android:layout_width="48dp"
             android:layout_height="48dp"

@@ -48,7 +48,7 @@ public class SocketFragment extends BasedFragment implements SocketContract.View
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_light;
+        return R.layout.fragment_socket;
     }
 
 

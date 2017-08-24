@@ -11,13 +11,15 @@ import android.widget.TextView;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import net.suntrans.smartbuilding.Constant;
 import net.suntrans.smartbuilding.R;
-import net.suntrans.smartbuilding.ui.fragment.AreaFragment;
+import net.suntrans.smartbuilding.ui.fragment.ConSpecificFragment;
 
 /**
- * Created by Administrator on 2017/8/9.
+ * Created by Looney on 2017/8/9.
+ * 控制页面 具体操作设备的activity，example:场景、氙气灯等内容的具体操作
  */
-public class MyAreaActivity extends RxAppCompatActivity {
+public class ConSpecificActivity extends RxAppCompatActivity {
     private final String AREALIST ="AREALIST";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,9 +44,16 @@ public class MyAreaActivity extends RxAppCompatActivity {
             lp.height = getResources().getDimensionPixelSize(R.dimen.actionBarSize);
             toolBar.setLayoutParams(lp);
         }
+        String type = getIntent().getStringExtra("type");
         TextView tv = (TextView) findViewById(R.id.title);
-        tv.setText(getResources().getString(R.string.title_my_area));
-        AreaFragment fragment =  AreaFragment.newInstance(getIntent().getStringExtra("url"));
+        String areaid = "";
+        if (type.equals(Constant.TYPE_MYAREA)){
+            tv.setText(getResources().getString(R.string.title_my_area));
+        }else {
+            tv.setText(getIntent().getStringExtra("titleName"));
+            areaid = getIntent().getStringExtra("areaid");
+        }
+        ConSpecificFragment fragment =  ConSpecificFragment.newInstance(type,areaid);
         getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment,AREALIST)
                 .commit();
     }

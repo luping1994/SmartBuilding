@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import net.suntrans.smartbuilding.R;
-import net.suntrans.smartbuilding.ui.fragment.AreaFragment;
 import net.suntrans.smartbuilding.ui.fragment.MenuFragment;
 import net.suntrans.smartbuilding.ui.presenter.impl.MenuPresenter;
 import net.suntrans.smartbuilding.utils.ActivityUtils;

@@ -13,11 +13,10 @@ import com.trello.rxlifecycle.components.support.RxFragment;
 import net.suntrans.smartbuilding.R;
 import net.suntrans.smartbuilding.ui.adapter.FragmentAdapter;
 import net.suntrans.smartbuilding.ui.presenter.AirContract;
-import net.suntrans.smartbuilding.ui.presenter.LightContract;
-import net.suntrans.smartbuilding.ui.presenter.SceneContract;
 import net.suntrans.smartbuilding.ui.presenter.impl.AirPresenter;
 import net.suntrans.smartbuilding.ui.presenter.impl.LightPresenter;
 import net.suntrans.smartbuilding.ui.presenter.impl.ScenePresenter;
+import net.suntrans.smartbuilding.ui.presenter.impl.SixsensorPresenter;
 import net.suntrans.smartbuilding.ui.presenter.impl.SocketPresenter;
 import net.suntrans.smartbuilding.ui.presenter.impl.XenonPresenter;
 
@@ -25,19 +24,29 @@ import net.suntrans.smartbuilding.ui.presenter.impl.XenonPresenter;
  * Created by Administrator on 2017/8/9.
  */
 
-public class AreaFragment extends RxFragment {
+public class ConSpecificFragment extends RxFragment {
 
     private final String TAG = getClass().getSimpleName();
-    private String url;
-    private ScenePresenter presenter;
+    private String type;
+    private String areaid;
 
-    public static AreaFragment newInstance(String url) {
-        AreaFragment fragment = new AreaFragment();
+
+    public static ConSpecificFragment newInstance(String type,String areaid) {
+        ConSpecificFragment fragment = new ConSpecificFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("url", url);
+        bundle.putString("type", type);
+        bundle.putString("areaid", areaid);
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        type = getArguments().getString("type");
+        areaid = getArguments().getString("areaid");
+    }
+
 
     @Nullable
     @Override
@@ -48,28 +57,28 @@ public class AreaFragment extends RxFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        SceneFragment sceneFragment = SceneFragment.newInstance(url);
-        presenter = new ScenePresenter(sceneFragment);
-
-        LightFragment lightFragment = LightFragment.newInstance(url);
-        LightPresenter presenter1 = new LightPresenter(lightFragment);
-
-        AirConditioningFragment airConditioningFragment = AirConditioningFragment.newInstance(url);
-        AirContract.Presenter  presenter2  = new AirPresenter(airConditioningFragment);
-
+        SceneFragment sceneFragment = SceneFragment.newInstance(type);
+        LightFragment lightFragment = LightFragment.newInstance(type);
+        AirConditioningFragment airConditioningFragment = AirConditioningFragment.newInstance(type);
         XenonFragment xenonFragment = new XenonFragment();
-        XenonPresenter presenter = new XenonPresenter(xenonFragment);
+        SocketFragment socketFragment = SocketFragment.newInstance(type);
+        SixsensorFragment fragment = new SixsensorFragment();
 
+        ScenePresenter presenter1 = new ScenePresenter(sceneFragment, type,areaid);
+        LightPresenter presenter2 = new LightPresenter(lightFragment);
+        AirContract.Presenter presenter3 = new AirPresenter(airConditioningFragment);
+        XenonPresenter presenter4 = new XenonPresenter(xenonFragment);
+        SocketPresenter presenter5 = new SocketPresenter(socketFragment);
+        SixsensorPresenter presenter6 = new SixsensorPresenter(fragment);
 
-        SocketFragment socketFragment = SocketFragment.newInstance(url);
-        SocketPresenter presenter3 = new SocketPresenter(socketFragment);
 
         FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager());
         adapter.addFragment(sceneFragment, "模式");
         adapter.addFragment(lightFragment, "照明");
-        adapter.addFragment(airConditioningFragment,"空调");
+        adapter.addFragment(airConditioningFragment, "空调");
         adapter.addFragment(xenonFragment, "氙气灯");
-        adapter.addFragment(socketFragment,"插座");
+        adapter.addFragment(socketFragment, "插座");
+        adapter.addFragment(fragment, "第六感");
 //        adapter.addFragment(SceneFragment.newInstance(url),"其他");
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
@@ -85,4 +94,6 @@ public class AreaFragment extends RxFragment {
 
         super.onDestroyView();
     }
+
+
 }
