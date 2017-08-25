@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static net.suntrans.smartbuilding.R.id.a;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -144,8 +147,19 @@ public class GlobalConFragment extends BasedFragment {
                     public void onNext(AreaEntity areaEntity) {
                         stateView.showContent();
                         recyclerView.setVisibility(View.VISIBLE);
-                        datas.clear();
 
+//                        if (areaEntity.data.size()>=8){
+//                            if (recyclerView.getLayoutManager()==null){
+//                                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+//                                recyclerView.setLayoutManager(gridLayoutManager);
+//                            }
+//                        }else {
+//                            if (recyclerView.getLayoutManager()==null){
+//                                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+//                                recyclerView.setLayoutManager(gridLayoutManager);
+//                            }
+//                        }
+                        datas.clear();
                         datas.addAll(areaEntity.data);
                         adapter.notifyDataSetChanged();
                     }

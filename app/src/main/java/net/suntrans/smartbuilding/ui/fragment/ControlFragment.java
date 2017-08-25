@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -16,8 +17,10 @@ import net.suntrans.smartbuilding.ui.activity.ConSpecificActivity;
 import net.suntrans.smartbuilding.ui.adapter.ControlAdapter;
 import net.suntrans.smartbuilding.data.MenuItemEntity;
 import net.suntrans.smartbuilding.ui.base.BasedFragment;
+import net.suntrans.smartbuilding.ui.fragment.dialog.AlertDialogFragment;
 import net.suntrans.smartbuilding.ui.presenter.ControlContract;
 import net.suntrans.smartbuilding.utils.LogUtil;
+import net.suntrans.smartbuilding.utils.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +56,20 @@ public class ControlFragment extends BasedFragment implements ControlContract.Vi
                     Intent intent = new Intent(getActivity(), ConSpecificActivity.class);
                     intent.putExtra("type", Constant.TYPE_MYAREA);
                     startActivity(intent);
-                } else if (datas.get(position).getLi_name().equals("全局控制")){
+                } else if (datas.get(position).getLi_name().equals(getString(R.string.title_gobal_con))){
                     Intent intent = new Intent(getActivity(), GlobalConActivity.class);
                     startActivity(intent);
+                }else if (datas.get(position).getLi_name().equals(getString(R.string.title_device_operation))){
+
+                }else {
+                    AlertDialogFragment dialogFragment = (AlertDialogFragment) getChildFragmentManager().findFragmentByTag(DILAOG_TAG);
+                    if (dialogFragment==null){
+                        dialogFragment = new AlertDialogFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("msg",getString(R.string.tips_developing));
+                        dialogFragment.setArguments(bundle);
+                    }
+                    dialogFragment.show(getChildFragmentManager(),DILAOG_TAG);
                 }
             }
         });

@@ -4,6 +4,7 @@ import net.suntrans.smartbuilding.Constant;
 import net.suntrans.smartbuilding.data.SceneEntity;
 import net.suntrans.smartbuilding.ui.presenter.SceneContract;
 import net.suntrans.smartbuilding.utils.ListUtils;
+import net.suntrans.smartbuilding.utils.LogUtil;
 
 import rx.Subscriber;
 
@@ -27,6 +28,7 @@ public class ScenePresenter extends BasedPresenterImpl implements SceneContract.
     @Override
     public void loadData() {
         mView.showLoading();
+        LogUtil.i(areaid);
         if (type.equals(Constant.TYPE_MYAREA))
             addSubscription(api.getMyareaScene(), new Subscriber<SceneEntity>() {
                 @Override

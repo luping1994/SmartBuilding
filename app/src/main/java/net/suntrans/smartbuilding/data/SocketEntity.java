@@ -37,8 +37,6 @@ public class SocketEntity {
          * update_at : 2017-08-08 20:26:42
          */
 
-
-
         public String id;
         public String dev_id;
         public String number;

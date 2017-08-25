@@ -20,6 +20,7 @@ import net.suntrans.smartbuilding.ui.adapter.RecyclerViewAdapter;
 import net.suntrans.smartbuilding.ui.base.BasedFragment;
 import net.suntrans.smartbuilding.ui.presenter.SixsensorContract;
 import net.suntrans.smartbuilding.ui.presenter.SocketContract;
+import net.suntrans.smartbuilding.utils.LogUtil;
 import net.suntrans.stateview.StateView;
 
 import java.util.ArrayList;
@@ -57,12 +58,7 @@ public class SixsensorFragment extends BasedFragment implements SixsensorContrac
         datas = new ArrayList<>();
         manager = Glide.with(SixsensorFragment.this);
 
-        stateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
-            @Override
-            public void onRetryClick() {
-                presenter.loadData();
-            }
-        });
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         adapter = new RecyclerViewAdapter<SixSensor.DataBean>(R.layout.item_sixsensor, datas) {

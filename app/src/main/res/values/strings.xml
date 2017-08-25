@@ -14,6 +14,10 @@
     <string name="tips_isempty">暂无数据</string>
     <string name="smartlife">智能生活</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tips_developing">This feature is under development and not well tested!</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="title_device_operation">设备运维</string>
+    <string name="title_gobal_con">全局控制</string>
+    <string name="title_model">模式</string>
 </resources>

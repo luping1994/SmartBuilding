@@ -65,15 +65,15 @@ public class ConSpecificFragment extends RxFragment {
         SixsensorFragment fragment = new SixsensorFragment();
 
         ScenePresenter presenter1 = new ScenePresenter(sceneFragment, type,areaid);
-        LightPresenter presenter2 = new LightPresenter(lightFragment);
-        AirContract.Presenter presenter3 = new AirPresenter(airConditioningFragment);
-        XenonPresenter presenter4 = new XenonPresenter(xenonFragment);
-        SocketPresenter presenter5 = new SocketPresenter(socketFragment);
-        SixsensorPresenter presenter6 = new SixsensorPresenter(fragment);
+        LightPresenter presenter2 = new LightPresenter(lightFragment,type,areaid);
+        AirContract.Presenter presenter3 = new AirPresenter(airConditioningFragment, type,areaid);
+        XenonPresenter presenter4 = new XenonPresenter(xenonFragment, type,areaid);
+        SocketPresenter presenter5 = new SocketPresenter(socketFragment, type,areaid);
+        SixsensorPresenter presenter6 = new SixsensorPresenter(fragment, type,areaid);
 
 
         FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager());
-        adapter.addFragment(sceneFragment, "模式");
+        adapter.addFragment(sceneFragment, getString(R.string.title_model));
         adapter.addFragment(lightFragment, "照明");
         adapter.addFragment(airConditioningFragment, "空调");
         adapter.addFragment(xenonFragment, "氙气灯");

@@ -15,6 +15,7 @@ import net.suntrans.stateview.StateView;
 
 public abstract class BasedFragment extends LazyLoadFragment implements StateView.OnRetryClickListener {
     protected StateView stateView;
+    protected final static String DILAOG_TAG="AlertDialog";
 
     @Nullable
     @Override

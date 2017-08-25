@@ -74,8 +74,9 @@ public interface Api {
      *
      * @return
      */
-    @POST("Visit_Data/VisitLight")
-    Observable<LightEntity> getGlobalLight();
+    @FormUrlEncoded
+    @POST("Visit_Data/VisitGetLight")
+    Observable<LightEntity> getGlobalLight(@Field("areaid") String areaid);
 
     /**
      * 我的区域->空调列表
@@ -90,8 +91,9 @@ public interface Api {
      *
      * @return
      */
-    @POST("Visit_Data/VisitAir")
-    Observable<AirConditionEntity> getGlobalAir();
+    @FormUrlEncoded
+    @POST("Visit_Data/VisitGetAir")
+    Observable<AirConditionEntity> getGlobalAir(@Field("areaid") String areaid);
 
     /**
      * 我的区域->氙气灯列表
@@ -106,8 +108,9 @@ public interface Api {
      *
      * @return
      */
-    @POST("Visit_Data/VisitXemon")
-    Observable<XenonEntity> getGlobalXenon();
+    @FormUrlEncoded
+    @POST("Visit_Data/VisitGetXemon")
+    Observable<XenonEntity> getGlobalXenon(@Field("areaid") String areaid);
 
     /**
      * 我的区域->插座列表
@@ -122,8 +125,9 @@ public interface Api {
      *
      * @return
      */
-    @POST("Visit_Data/VisitSocket")
-    Observable<SocketEntity> getGlobalSocket();
+    @FormUrlEncoded
+    @POST("Visit_Data/VisitGetSocket")
+    Observable<SocketEntity> getGlobalSocket(@Field("areaid") String areaid);
 
     /**
      * 我的区域->第六感列表
@@ -138,8 +142,9 @@ public interface Api {
      *
      * @return
      */
-    @POST("Visit_Data/VisitSix")
-    Observable<SixSensor> getGlobalSixSensor();
+    @FormUrlEncoded
+    @POST("Visit_Data/VisitGetSix")
+    Observable<SixSensor> getGlobalSixSensor(@Field("areaid") String areaid);
 
     /**
      * 全局控制 区域列表

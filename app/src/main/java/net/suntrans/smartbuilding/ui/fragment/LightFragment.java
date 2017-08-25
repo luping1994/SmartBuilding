@@ -75,7 +75,7 @@ public class LightFragment extends BasedFragment implements LightContract.View {
             protected void convert(BaseViewHolder helper, LightEntity.DataBean item) {
                 helper.setText(R.id.name, item.getName());
                 ImageView imageView = helper.getView(R.id.image);
-                imageView.setImageResource(item.getStatus().equals("0") ? R.drawable.ic_light_on : R.drawable.ic_light_off);
+                imageView.setImageResource(item.getStatus().equals("1") ? R.drawable.ic_light_on : R.drawable.ic_light_off);
             }
         };
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
